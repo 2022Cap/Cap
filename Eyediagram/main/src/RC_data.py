@@ -2,14 +2,17 @@ import matplotlib.pyplot as plt
 import numpy as np
 from lmfit import Model
 from sklearn.metrics import r2_score
+import os
+
 
 def RC(seg_length, voltage,node):
+    path = str(os.getcwd()).replace("src", "")
     V = []
     capacitance = []
     resistance = []
     admittance = []
+    lines = open(f'{path}' + '/data/sample/'+ node + '_CV_result_ac_des.plt','r').readlines()
 
-    lines = open(node+'_CV_result_ac_des.plt','r').readlines()
     for i in range(len(lines)):
         if lines[i] == '      1.00000000000000E+09\n':
             split = lines[i+1].split('   ')
