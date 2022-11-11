@@ -15,13 +15,13 @@ from src import RC_data as RC
 from src import PRBS
 
 # 회로 설계
-def MZM(signal,seg_length,Zs, L0_init, C0_init,node): # RC 데이터 리스트 추가
+def MZM(signal,seg_length,Zs, L0_init, C0_init,node,SampleName): # RC 데이터 리스트 추가
     circuit = Circuit('Custom')
 
     source = circuit.PieceWiseLinearVoltageSource('input', 10, circuit.gnd, values=signal)
     
-    [aRs, bRs, cRs] = RC.RC(500,0,node)[0]
-    [aCj, bCj, cCj] = RC.RC(500,0,node)[1]
+    [aRs, bRs, cRs] = RC.RC(500,0,node,SampleName)[0]
+    [aCj, bCj, cCj] = RC.RC(500,0,node,SampleName)[1]
     
     circuit.R('z', 10, 1, Zs@u_Ω)
     circuit.C('0', 1, circuit.gnd, C0_init@u_F)
@@ -34,5 +34,3 @@ def MZM(signal,seg_length,Zs, L0_init, C0_init,node): # RC 데이터 리스트 �
     analysis = simulator.transient(step_time=step_time, end_time=5000@u_ps)
     print('성공')
     return analysis
-
-

@@ -4,10 +4,11 @@ import sympy
 from fractions import Fraction
 import os
 
-def neff_voltage(wl,node):
+def neff_voltage(wl,node,SampleName):
     voltage = [0,-0.5,-1,-1.5,-2]
-    path = str(os.getcwd()).replace("src", "")
-    f = open(f'{path}' + '/data/sample/' + node + "_굴절률.txt", 'r')
+    file_p = os.path.abspath(__file__)
+    file_p = file_p.replace('src/neff.py',('data/'+SampleName+'/'))
+    f = open(file_p + node+"_굴절률.txt",'r')
 
     line = f.readline()
     neff = line.split(',')
